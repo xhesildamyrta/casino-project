@@ -1,6 +1,6 @@
 @php
     $casinos = [
-        'playzee' => [
+        [
             'image' => 'playzee.png',
             'badge' => 'Player Favourite',
             'title' => 'PlayZee',
@@ -9,7 +9,7 @@
             'fill' => 'bg-purple-800',
             'rgb' => '#7906B9',
         ],
-        'machance' => [
+        [
             'image' => 'machance.png',
             'badge' => 'Trending',
             'title' => 'Machance',
@@ -18,7 +18,7 @@
             'fill' => 'bg-black',
             'rgb' => '#000000',
         ],
-        'intense' => [
+        [
             'image' => 'intense.png',
             'badge' => 'Number 1 In Europe',
             'title' => 'Intense',
@@ -27,7 +27,7 @@
             'fill' => 'bg-blue-200',
             'rgb' => '#C2EEF9',
         ],
-        'leovegas' => [
+        [
             'image' => 'leovegas.png',
             'badge' => 'Exclusive',
             'title' => 'Leovega',
@@ -36,7 +36,7 @@
             'fill' => 'bg-teal-600',
             'rgb' => '#45C0A5',
         ],
-        'casumo' => [
+        [
             'image' => 'casumo.png',
             'badge' => null,
             'title' => 'Casumo',
@@ -56,9 +56,10 @@
             <div class="relative">
                 <img src="/images/banner.png" alt="Casino" class="md:hidden" />
                 <div
-                    class="absolute text-white text-2xl top-[10%] font-medium px-4 md:relative md:mx-auto md:text-center  md:pt-10">
+                    class="absolute text-white text-2xl top-[10%]  font-medium px-4 md:relative md:mx-auto md:text-center ">
                     {{ __('TOP 5 Real Money Online Casino Bonus List!') }}</div>
-                <div class="hidden md:flex text-white text-sm text-center mt-6">Play online slots for real money at
+                <div class="hidden md:flex text-white text-sm text-center  place-content-center mt-6">Play online slots
+                    for real money at
                     trusted online casinos is Europe. Claim your exclusive welcome bonus and start playing slots today!
                 </div>
                 <div
@@ -67,6 +68,7 @@
                     </p>
                 </div>
             </div>
+            <p id="message" class="text-green-500 py-2 font-medium text-center"></p>
             {{-- mobile --}}
             <x-casino.casino-mobile :casinos="$casinos" />
             {{-- desktop --}}
@@ -74,3 +76,29 @@
         </div>
     </div>
 </div>
+<script>     
+    document.addEventListener('DOMContentLoaded', () => {
+       
+        document.querySelectorAll('.play-button').forEach(button => {
+            button.addEventListener('click', async () => {
+                const buttonId = button.getAttribute('data-button-id');
+                const ipAddress = '{{ request()->ip() }}';
+                const currentDate = new Date().toISOString();
+                try {
+                    const response = await fetch('/save-click', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        },
+                        body: JSON.stringify({ button_id: buttonId, user_ip: ipAddress, datetime: currentDate }),
+                    });
+                    const data = await response.json();
+                    document.getElementById('message').textContent = data.message;
+                } catch (error) {
+                    console.log('Error:', error);
+                }
+            });
+        });
+    });
+</script>

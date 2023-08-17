@@ -21,7 +21,7 @@
                                 @endfor
                             </div>
                             <div>
-                                <x-core.button type="button"
+                                <x-core.button type="button" class="play-button" data-button-id="{{$key+1}}"
                                     class="text-xl xl:text-sm leading-tight w-[100px] bg-[#2BE925] h-10">Play</x-core.button>
                             </div>
                         </div>

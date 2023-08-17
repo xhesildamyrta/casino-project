@@ -1,4 +1,4 @@
-<div class="hidden md:grid gap-y-6 place-content-center">
+<div class="hidden md:grid gap-y-6 place-content-center pb-10">
     @foreach ($casinos as $key => $casino)
         <div class="flex bg-white rounded-md pr-6">
             <div class="relative flex">
@@ -28,8 +28,8 @@
                 </div>
                 <div class="font-bold grid place-content-center text-3xl pl-8">10.0</div>
                 <div class="grid place-content-center  pl-8">
-                    <x-core.button type="button"
-                        class="text-xl xl:text-sm leading-tight w-[100px] bg-[#2BE925] h-10">Play</x-core.button>
+                    <x-core.button type="button" data-button-id="{{$key+1}}"
+                        class="text-xl xl:text-sm leading-tight w-[100px] bg-[#2BE925] h-10 play-button">Play</x-core.button>
                 </div>
             </div>
         </div>
