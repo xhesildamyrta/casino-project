@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-   <x-casino/>
+   <x-casino.index/>
 @endsection
