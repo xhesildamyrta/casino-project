@@ -6,7 +6,7 @@
             <strong> {{ session()->get('success') }}</strong>
         </x-core.session-alert>
     @endif
-    <div class="p-6">
+    <div class="p-6 max-w-screen-2xl mx-auto">
         <div class="flex items-center justify-between pb-4">
             <a href="{{ route('home') }}">
                 <img class="max-w-[100px] sm:max-w-[200px] h-auto mr-2" src="/images/logo.png" alt="logo">

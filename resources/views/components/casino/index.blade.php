@@ -1,6 +1,6 @@
 <div
     class="block md:bg-[url(https://img.traveltriangle.com/blog/wp-content/uploads/2018/09/hong-kong-casinos-cover.jpg)] h-full">
-    <div class=" backdrop-blur-md">
+    <div class="backdrop-blur-md h-screen ">
         <div class="bg-black w-full absolute inset-x-0 md:relative md:bg-transparent md:h-fit ">
             <img src="/images/logo.png" alt="Casino"
                 class="w-1/2 px-4 py-2 md:max-w-xs md:px-0 md:py-5 md:block md:mx-auto " />

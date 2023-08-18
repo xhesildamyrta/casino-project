@@ -16,7 +16,7 @@
 
 </head>
 
-<body class="antialiased max-w-screen-2xl mx-auto">
+<body class="antialiased">
     @yield('content')
 </body>
 
