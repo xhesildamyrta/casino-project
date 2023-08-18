@@ -31,8 +31,8 @@
                 </div>
                 <div class="font-bold grid place-content-center text-3xl pl-8">10.0</div>
                 <div class="grid place-content-center  pl-8">
-                    <x-core.button type="button"
-                        class="text-xl xl:text-sm leading-tight w-[100px] bg-[#2BE925] h-10">Play</x-core.button>
+                    <x-core.button type="button" data-button-id="{{ $key + 1 }}"
+                        class="play-button text-xl xl:text-sm leading-tight w-[100px] bg-[#2BE925] h-10">Play</x-core.button>
                 </div>
             </div>
         </div>
