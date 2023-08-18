@@ -17,8 +17,10 @@ use App\Http\Controllers\HomeController;
 Route::get('/',[App\Http\Controllers\CasinoController::class, 'index'])->name('home');
 Route::post('/save-click', [App\Http\Controllers\CasinoController::class, 'saveLogAndDB'])->name('saveClick');
 
-Route::get('/login',[App\Http\Controllers\HomeController::class, 'showLogin'])->name('login');
-Route::post('/login',[App\Http\Controllers\HomeController::class, 'loginAction'])->name('custom.login');
+Route::middleware('guest')->group(function () {
+    Route::get('/login',[App\Http\Controllers\HomeController::class, 'showLogin'])->name('login');
+    Route::post('/login',[App\Http\Controllers\HomeController::class, 'loginAction'])->name('custom.login');
+});
 
 Route::middleware('userLoggedIn')->group(function () {
     Route::get('/dashboard',[App\Http\Controllers\HomeController::class, 'showDashboard'])->name('dashboard');
