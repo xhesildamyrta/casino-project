@@ -14,10 +14,15 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-Route::get('/',[App\Http\Controllers\CasinoController::class, 'index'])->name('casino');
+Route::get('/',[App\Http\Controllers\CasinoController::class, 'index'])->name('home');
 Route::post('/save-click', [App\Http\Controllers\CasinoController::class, 'saveLogAndDB'])->name('saveClick');
 
-Route::get('/admin',[App\Http\Controllers\HomeController::class, 'showLogin'])->name('login');
-Route::post('/admin',[App\Http\Controllers\HomeController::class, 'loginAction'])->name('custom.login');
+Route::get('/login',[App\Http\Controllers\HomeController::class, 'showLogin'])->name('login');
+Route::post('/login',[App\Http\Controllers\HomeController::class, 'loginAction'])->name('custom.login');
 
+Route::middleware('userLoggedIn')->group(function () {
+    Route::get('/dashboard',[App\Http\Controllers\HomeController::class, 'showDashboard'])->name('dashboard');
+    Route::post('/logout', [App\Http\Controllers\HomeController::class, 'logOut'])->name('logout');
+    Route::get('/filter',  [App\Http\Controllers\HomeController::class, 'filter'])->name('filter');
+});
 

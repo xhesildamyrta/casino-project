@@ -1,52 +1,3 @@
-@php
-    $casinos = [
-        [
-            'image' => 'playzee.png',
-            'badge' => 'Player Favourite',
-            'title' => 'PlayZee',
-            'info' => '100% Up to + <span class="font-bold">$1500</span> + 150 Zee Spins + 500 Zee Points',
-            'stars' => 4,
-            'fill' => 'bg-purple-800',
-            'rgb' => '#7906B9',
-        ],
-        [
-            'image' => 'machance.png',
-            'badge' => 'Trending',
-            'title' => 'Machance',
-            'info' => '200% Up to + $500 + 20 Free Spins',
-            'stars' => 4,
-            'fill' => 'bg-black',
-            'rgb' => '#000000',
-        ],
-        [
-            'image' => 'intense.png',
-            'badge' => 'Number 1 In Europe',
-            'title' => 'Intense',
-            'info' => '200% Up to + $3,000 + 30 FREE SPINS',
-            'stars' => 4,
-            'fill' => 'bg-blue-200',
-            'rgb' => '#C2EEF9',
-        ],
-        [
-            'image' => 'leovegas.png',
-            'badge' => 'Exclusive',
-            'title' => 'Leovega',
-            'info' => '200% Up to + $200 + 25 Free Spins on Book of Dead',
-            'stars' => 4,
-            'fill' => 'bg-teal-600',
-            'rgb' => '#45C0A5',
-        ],
-        [
-            'image' => 'casumo.png',
-            'badge' => null,
-            'title' => 'Casumo',
-            'info' => 'Welcome Bonus + $50 + 20 Free Spins',
-            'stars' => 4,
-            'fill' => 'bg-gray-200',
-            'rgb' => '#D1D7D5',
-        ],
-    ];
-@endphp
 <div
     class="block md:bg-[url(https://img.traveltriangle.com/blog/wp-content/uploads/2018/09/hong-kong-casinos-cover.jpg)] h-full">
     <div class=" backdrop-blur-md">
@@ -58,9 +9,8 @@
                 <div
                     class="absolute text-white text-2xl top-[10%]  font-medium px-4 md:relative md:mx-auto md:text-center ">
                     {{ __('TOP 5 Real Money Online Casino Bonus List!') }}</div>
-                <div class="hidden md:flex text-white text-sm text-center  place-content-center mt-6">Play online slots
-                    for real money at
-                    trusted online casinos is Europe. Claim your exclusive welcome bonus and start playing slots today!
+                <div class="hidden md:flex text-white text-sm text-center  place-content-center mt-6">
+                    {{ __('Play online slots for real money at trusted online casinos is Europe. Claim your exclusive welcome bonus and start playing slots today!') }}'
                 </div>
                 <div
                     class="absolute bg-gray-800 opacity-70 bottom-14 inset-x-0 py-4 md:relative md:bg-transparent md:opacity-100 md:bottom-auto">
@@ -68,7 +18,9 @@
                     </p>
                 </div>
             </div>
-            <p id="message" class="text-green-500 py-2 font-medium text-center"></p>
+            <p id="message"
+                class="text-green-500 py-2 font-medium text-center fixed top-6 right-3 md:relative md:top-auto md:right-auto"
+                style="display: none;"></p>
             {{-- mobile --}}
             <x-casino.casino-mobile :casinos="$casinos" />
             {{-- desktop --}}
@@ -76,14 +28,17 @@
         </div>
     </div>
 </div>
-<script>     
+<script>
     document.addEventListener('DOMContentLoaded', () => {
-       
-        document.querySelectorAll('.play-button').forEach(button => {
+        const messageElement = document.getElementById('message');
+        const buttons = document.querySelectorAll('.play-button');
+
+        buttons.forEach(button => {
             button.addEventListener('click', async () => {
                 const buttonId = button.getAttribute('data-button-id');
                 const ipAddress = '{{ request()->ip() }}';
                 const currentDate = new Date().toISOString();
+
                 try {
                     const response = await fetch('/save-click', {
                         method: 'POST',
@@ -91,10 +46,21 @@
                             'Content-Type': 'application/json',
                             'X-CSRF-TOKEN': '{{ csrf_token() }}',
                         },
-                        body: JSON.stringify({ button_id: buttonId, user_ip: ipAddress, datetime: currentDate }),
+                        body: JSON.stringify({
+                            button_id: buttonId,
+                            user_ip: ipAddress,
+                            datetime: currentDate
+                        }),
                     });
+
                     const data = await response.json();
-                    document.getElementById('message').textContent = data.message;
+                    const message = data.message;
+                    messageElement.textContent = message;
+                    messageElement.style.display = 'block';
+
+                    setTimeout(() => {
+                        messageElement.style.display = 'none';
+                    }, 5000);
                 } catch (error) {
                     console.log('Error:', error);
                 }

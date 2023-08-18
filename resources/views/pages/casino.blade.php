@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-   <x-casino.index/>
+    <x-casino.index :casinos="$casinos" />
 @endsection
